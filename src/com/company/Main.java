@@ -2,6 +2,9 @@ package com.company;
 
 import java.util.Scanner;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
@@ -11,24 +14,43 @@ public class Main {
         Multiplication multi = new Multiplication();
         Division div = new Division();
 
-        while (true) {
-            System.out.println("Введи текст в формате 'a (операция) b' и нажми Enter");
-            System.out.println("Для завершения программы введи 'exit'");
-            double a = console.nextDouble();
-            char op = console.next().charAt(0);
-            double b = console.nextDouble();
+        System.out.println("Введи текст в формате 'a (операция) b' и нажми Enter");
+        System.out.println("Для завершения программы введи 'exit'");
+        double a = 0, b = 0;
+        String operation = "";
 
-            if (op == '+') {
-                add.execute(a, b);
+        while (true) {
+            String str = console.nextLine();
+            if (str.equals("exit")) {
+                return;
             }
-            else if (op == '-') {
-                sub.execute(a, b);
+            String regex = "^\\s*(\\d+(.\\d+)?)\\s*([*+/-])\\s*(\\d+(.\\d+)?)\\s*$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(str);
+
+            if (matcher.find()) {
+                a = Double.parseDouble(matcher.group(1));
+                operation = matcher.group(3);
+                b = Double.parseDouble(matcher.group(4));
+            } else {
+                System.out.println("Неверный ввод!");
             }
-            else if (op == '*') {
-                multi.execute(a, b);
-            }
-            else if (op == '/') {
-                div.execute(a, b);
+
+            switch (operation) {
+                case "+":
+                    add.execute(a, b);
+                    break;
+                case "-":
+                    sub.execute(a, b);
+                    break;
+                case "*":
+                    multi.execute(a, b);
+                    break;
+                case "/":
+                    div.execute(a, b);
+                    break;
+                default:
+                    break;
             }
         }
     }

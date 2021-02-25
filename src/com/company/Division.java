@@ -8,7 +8,7 @@ public class Division extends Operation {
             return;
         }
         if (a % b == 0) {
-            System.out.println("Результат: " + (int) (a / b));
+            System.out.println("Результат: " + Math.round(a / b));
         } else {
             System.out.println("Результат: " + (a / b));
         }
