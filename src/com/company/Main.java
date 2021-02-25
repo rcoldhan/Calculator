@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.Scanner;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,9 +16,10 @@ public class Main {
         System.out.println("Введи текст в формате 'a (операция) b' и нажми Enter");
         System.out.println("Для завершения программы введи 'exit'");
         double a = 0, b = 0;
-        String operation = "";
+        String operation;
 
         while (true) {
+            operation = "";
             String str = console.nextLine();
             if (str.equals("exit")) {
                 return;
